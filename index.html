@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<script type="text/javascript" src="iscroll/build/iscroll.js"></script>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<style>
+		#wraper {
+	position: absolute;
+	z-index: 1;
+	top: 0px;
+	bottom: 500px;
+	left: 0;
+	width: 100%;
+	background: #ccc;
+	overflow: hidden;
+	padding-bottom: 130px;
+}
+	*{
+		padding: 0;
+		margin: 0;
+	}
+	</style>
+</head>
+<body onload="load()">
+	<div id="wraper">
+		<ul>
+			<li>55555</li>
+		</ul>
+	</div>
+</body>
+
+	<script>
+		var myScroll;
+		var html = '';
+		function load(){
+			console.log(888)
+			myScroll = new IScroll('#wraper', { bounceEasing: 'elastic', bounceTime: 1200 });
+
+			for(var i = 0;i <30;i++){
+				html += '<li>' + (i+1) + '</li>'
+			}
+			$('#wraper ul').append(html);
+			myScroll.refresh();
+			myScroll.on('scrollEnd',function(){
+				console.log('scrollEnd')
+				if(/144/.test(html)){
+					if(/我/.test($('#wraper ul').html())){
+						return;
+					}
+					$('#wraper ul').append('<li>我是有底线的~~~</li>');
+					myScroll.refresh();
+					return;
+				}
+				for(var i=100;i<150;i++){
+					html += '<li>'+i+'</li>';
+				}
+				$('#wraper ul').html(html);
+				myScroll.refresh();
+			})
+		}
+
+	</script>
+</html>
